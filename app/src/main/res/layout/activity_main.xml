@@ -16,4 +16,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/trackb"
+        android:layout_marginTop="10dp"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:onClick="clicked"
+        app:layout_constraintTop_toBottomOf="@+id/announ"
+        tools:layout_editor_absoluteX="8dp"
+        android:background="@color/colorAccent"/>
+
 </android.support.constraint.ConstraintLayout>
