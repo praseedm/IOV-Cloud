@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private String userName;
     TextView msg;
     Button trackB;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference(),announRef;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference(),announRef,dataRef = database.child("data");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Updated!!!", Toast.LENGTH_SHORT).show();
         String dis = mLastlocationObj.getmLongitude() + "," + mLastlocationObj.getmLatitude();
         msg.setText(dis);
+        dataRef.push().setValue(mLastlocationObj);
     }
 
     //Tracker fn
