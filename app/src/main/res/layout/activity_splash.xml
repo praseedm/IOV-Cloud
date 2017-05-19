@@ -5,15 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/colorPrimary"
+    android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context="com.example.master.proto1.SplashActivity">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Internet Of Vehcles"
-        android:textStyle="bold"
-        android:textSize="40sp"
-        android:textColor="@android:color/white"/>
+        android:layout_height="190dp">
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_drive_eta_black_24dp"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:background="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IOV - tracker"
+            android:textStyle="bold"
+            android:textSize="33sp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/colorAccent"/>
+    </RelativeLayout>
+
+
 
 </LinearLayout>
