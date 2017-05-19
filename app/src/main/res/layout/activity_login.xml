@@ -4,13 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context="com.example.master.proto1.LoginActivity">
 
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter vehicle number"
+        android:textAlignment="center"/>
+
     <Button
+        android:visibility="gone"
+        android:id="@+id/loginb"
         android:layout_gravity="center"
         android:background="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="login"/>
+        android:text="login"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:onClick="login"
+        />
 
+    <ProgressBar
+        android:layout_marginTop="20dp"
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/loginbtn"
+        android:visibility="gone"
+        />
 </LinearLayout>

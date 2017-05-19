@@ -36,13 +36,13 @@ public class SplashActivity extends AppCompatActivity {
             main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(main);
         }
-        /*else {
+        else {
             Intent login = new Intent(SplashActivity.this,LoginActivity.class);
             startActivity(login);
-        }*/
-        Intent main = new Intent(SplashActivity.this,MainActivity.class);
+        }
+        /*Intent main = new Intent(SplashActivity.this,MainActivity.class);
         main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(main);
+        startActivity(main);*/
         finish();
     }
 }
