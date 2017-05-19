@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import models.Constants;
+import models.UserObj;
 
 public class LoginActivity extends AppCompatActivity  implements GoogleApiClient.OnConnectionFailedListener{
     EditText vnumber;
@@ -71,8 +72,7 @@ public class LoginActivity extends AppCompatActivity  implements GoogleApiClient
                     if(mFbUser.getPhotoUrl() != null){photoUri = mFbUser.getPhotoUrl().toString();}
                     // User is signed in
                     UserObj newUser = new UserObj(mFbUser.getDisplayName(), photoUri, mFbUser.getUid(), mFbUser.getEmail());
-                    int randomPIN = (int)(Math.random()*9000)+1000;
-                    newUser.setPin(""+randomPIN);
+                    newUser.setvNumber(vNumber);
                     mRootRef.child(Constants.userRef).child(mFbUser.getUid()).setValue(newUser);
                     UserSingleton.getInstance().setVayaUser(newUser);
                     startMainACtivity();
