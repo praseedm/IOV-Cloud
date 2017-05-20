@@ -25,7 +25,7 @@
         android:background="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="login"
+        android:text="Register"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:onClick="login"
