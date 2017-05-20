@@ -12,13 +12,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -74,7 +82,6 @@ public class LoginActivity extends AppCompatActivity  implements GoogleApiClient
                     UserObj newUser = new UserObj(mFbUser.getDisplayName(), photoUri, mFbUser.getUid(), mFbUser.getEmail());
                     newUser.setvNumber(vNumber);
                     mRootRef.child(Constants.userRef).child(mFbUser.getUid()).setValue(newUser);
-                    UserSingleton.getInstance().setVayaUser(newUser);
                     startMainACtivity();
                     finish();
 
@@ -124,6 +131,59 @@ public class LoginActivity extends AppCompatActivity  implements GoogleApiClient
     }
 
     public void login(View view) {
+        vNumber = vnumber.getText().toString();
+        if(vNumber.trim().length() > 4){
+        signin();}
+        else Toast.makeText(this, "Vehicle number required", Toast.LENGTH_SHORT).show();
+    }
+
+    private void signin() {
+        progressBar.setVisibility(View.VISIBLE);
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            progressBar.setVisibility(View.GONE);
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if(result.isSuccess()){
+
+            GoogleSignInAccount acct = result.getSignInAccount();
+            Log.d(TAG, "LoginA LoginSucess: "+ acct);
+            AuthWithGoogle(acct);
+        }else {
+            Toast.makeText(LoginActivity.this, R.string.no_internet, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "LoginA LoginFailed: ");
+        }
+    }
+
+    private void AuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "LoginA AuthWithGoogle: " + " ID:" + acct.getId());
+        showProgressDialog();
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "LoginA Auth onComplete: ");
+                if (!task.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, R.string.no_internet, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "LoginA Auth onComplete: Failed ");
+                } else {
+
+                    Log.d(TAG, "LoginA onComplete: ");
+
+                }
+                hideProgressDialog();
+            }
+        });
     }
 
     private void startMainACtivity() {

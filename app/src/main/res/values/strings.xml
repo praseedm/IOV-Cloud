@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Proto1</string>
+    <string name="app_name">IOV-tracker</string>
+    <string name="no_internet">Failed,No Internet !!</string>
+    <string name="iov_tracker">IOV-tracker</string>
 </resources>

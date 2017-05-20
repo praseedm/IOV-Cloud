@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="@string/iov_tracker"
         android:id="@+id/announ"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:clickable="true"
         android:id="@+id/trackb"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -27,6 +28,7 @@
         android:onClick="clicked"
         app:layout_constraintTop_toBottomOf="@+id/announ"
         tools:layout_editor_absoluteX="8dp"
+        android:textColor="@android:color/white"
         android:background="@color/colorAccent"/>
 
 </LinearLayout>

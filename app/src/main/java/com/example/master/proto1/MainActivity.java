@@ -17,12 +17,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import models.Constants;
 import models.LocationObj;
 import services.LocationDaemon;
 
@@ -42,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private String userName;
     TextView msg;
     Button trackB;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference(),announRef,dataRef = database.child("data");
+    private FirebaseAuth mAuth ;
+    private FirebaseUser mFbUser;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference(),announRef,
+            dataRef = database.child(Constants.dataRef), singleRef = database.child(Constants.singleRef);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         trackB = (Button) findViewById(R.id.trackb);
         announRef = database.child("Announcement");
         database.child("test").setValue("test");
+        mAuth = FirebaseAuth.getInstance();
+        mFbUser = mAuth.getCurrentUser();
         checkPlayServices();
         mLocationDaemon = new LocationDaemon(this,TAG) {
             @Override
@@ -93,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Updated!!!", Toast.LENGTH_SHORT).show();
         String dis = mLastlocationObj.getmLongitude() + "," + mLastlocationObj.getmLatitude();
         msg.setText(dis);
-        dataRef.push().setValue(mLastlocationObj);
+        dataRef.child(mFbUser.getUid()).push().setValue(mLastlocationObj);
+        singleRef.child(mFbUser.getUid()).setValue(mLastlocationObj);
     }
 
     //Tracker fn
