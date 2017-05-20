@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         msg = (TextView) findViewById(R.id.announ);
         trackB = (Button) findViewById(R.id.trackb);
         announRef = database.child("Announcement");
-        database.child("test").setValue("test");
         mAuth = FirebaseAuth.getInstance();
         mFbUser = mAuth.getCurrentUser();
         checkPlayServices();
