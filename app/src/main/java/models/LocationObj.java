@@ -3,7 +3,7 @@ package models;
 import android.location.Location;
 
 public class LocationObj {
-    public String mUser;
+    public String mVehicleNum;
     public String mLastTime;
     public double mLatitude , mLongitude;
     public float mAccuracy;
@@ -12,19 +12,19 @@ public class LocationObj {
     }
 
     public LocationObj(String User , Location mLastLocation, String mLastTime) {
-        this.mUser = User;
+        this.mVehicleNum = User;
         this.mLastTime = mLastTime;
         this.mLatitude = mLastLocation.getLatitude();
         this.mLongitude = mLastLocation.getLongitude();
         this.mAccuracy = mLastLocation.getAccuracy();
     }
 
-    public String getmUser() {
-        return mUser;
+    public String getmVehicleNum() {
+        return mVehicleNum;
     }
 
-    public void setmUser(String mUser) {
-        this.mUser = mUser;
+    public void setmVehicleNum(String mVehicleNum) {
+        this.mVehicleNum = mVehicleNum;
     }
 
     public String getmLastTime() {

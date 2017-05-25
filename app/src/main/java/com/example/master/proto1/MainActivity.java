@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "mainactivity";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
-    private String userName;
+    private String userName,vNumber;
     TextView msg;
     Button trackB;
     private FirebaseAuth mAuth ;
@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFbUser = mAuth.getCurrentUser();
         checkPlayServices();
+        vNumber = MyApp.getVehicleNum();
+        msg.setText(vNumber);
         mLocationDaemon = new LocationDaemon(this,TAG) {
             @Override
             public void onLocationChanged(Location location) {
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Updated!!!", Toast.LENGTH_SHORT).show();
         String dis = mLastlocationObj.getmLongitude() + "," + mLastlocationObj.getmLatitude();
         msg.setText(dis);
+        mLastlocationObj.setmVehicleNum(vNumber);
         dataRef.child(mFbUser.getUid()).push().setValue(mLastlocationObj);
         singleRef.child(mFbUser.getUid()).setValue(mLastlocationObj);
     }

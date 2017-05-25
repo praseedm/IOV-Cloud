@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity  implements GoogleApiClient
                     // User is signed in
                     UserObj newUser = new UserObj(mFbUser.getDisplayName(), photoUri, mFbUser.getUid(), mFbUser.getEmail());
                     newUser.setvNumber(vNumber);
+                    MyApp.setVehicleNum(vNumber);
                     mRootRef.child(Constants.userRef).child(mFbUser.getUid()).setValue(newUser);
                     startMainACtivity();
                     finish();
