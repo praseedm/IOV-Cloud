@@ -18,6 +18,7 @@
         android:hint="Enter vehicle number"
         android:textAlignment="center"/>
 
+
     <Button
         android:visibility="gone"
         android:id="@+id/loginb"
@@ -30,6 +31,41 @@
         android:textStyle="bold"
         android:onClick="login"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Register and upload vehicle image"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/imageview"/>
+        <ImageButton
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageview"
+            android:src="@drawable/ic_galary"
+            android:onClick="picUpload"
+            />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DONE"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:onClick="registered"
+        android:id="@+id/bDone"/>
+
 
     <ProgressBar
         android:layout_marginTop="20dp"
