@@ -7,32 +7,55 @@
     android:orientation="vertical"
     tools:context="com.example.master.proto1.MainActivity">
 
+    <ImageView
+        android:id="@+id/vehicleImg"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
 
     <TextView
-        android:layout_centerHorizontal="true"
+        android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/iov_tracker"
+        android:layout_centerHorizontal="true"
+        android:text="name"
+        android:layout_below="@+id/vehicleImg"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:text="1234"
+        android:id="@+id/textVnum"
+        android:textSize="20sp"
+        android:layout_below="@id/textName"/>
+
+    <TextView
         android:id="@+id/announ"
-        android:layout_above="@+id/trackb"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/trackb"
+        android:layout_centerHorizontal="true" />
 
     <Button
-        android:clickable="true"
         android:id="@+id/trackb"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update"
-        android:onClick="clicked"
         android:layout_centerInParent="true"
-        android:textColor="@android:color/white"
-        android:background="@color/colorAccent"/>
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:clickable="true"
+        android:onClick="clicked"
+        android:text="Update"
+        android:textColor="@android:color/white" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/iov_tracker"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:text="@string/iov_tracker"/>
 
 </RelativeLayout>

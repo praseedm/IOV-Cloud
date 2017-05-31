@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import models.Constants;
 import models.LocationObj;
+import models.UserObj;
 import services.LocationDaemon;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "mainactivity";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private String userName,vNumber;
-    TextView msg;
+    TextView msg, textId,textvnum;
+    ImageView vehicleImg;
     Button trackB;
     private FirebaseAuth mAuth ;
     private FirebaseUser mFbUser;
@@ -55,13 +59,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         msg = (TextView) findViewById(R.id.announ);
+        textId = (TextView) findViewById(R.id.textName);
+        textvnum = (TextView) findViewById(R.id.textVnum);
+        vehicleImg = (ImageView) findViewById(R.id.vehicleImg);
         trackB = (Button) findViewById(R.id.trackb);
         announRef = database.child("Announcement");
         mAuth = FirebaseAuth.getInstance();
         mFbUser = mAuth.getCurrentUser();
         checkPlayServices();
         vNumber = MyApp.getVehicleNum();
-        msg.setText(vNumber);
         mLocationDaemon = new LocationDaemon(this,TAG) {
             @Override
             public void onLocationChanged(Location location) {
@@ -73,9 +79,32 @@ public class MainActivity extends AppCompatActivity {
         mLocationDaemon.connect();
     }
 
+    private void loadVehicelimage() {
+        database.child(Constants.vehicleRef).child(mFbUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserObj vehicle = dataSnapshot.getValue(UserObj.class);
+                if(vehicle != null){
+                    textId.setText(vehicle.getName());
+                    textvnum.setText(vehicle.getvNumber());
+                    Glide.with(MainActivity.this)
+                            .load(vehicle.getPhotoUri())
+                            .centerCrop()
+                            .into(vehicleImg);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
+        loadVehicelimage();
     }
 
     @Override
